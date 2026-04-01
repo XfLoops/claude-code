@@ -94,7 +94,17 @@
 - 上下文统计
 - 调试与诊断
 
-### 11. [权限系统](10-permission-system.md)
+### 11. [记忆系统](11-memory-system.md)
+- 系统架构与双轨设计
+- 自动记忆系统 (Auto-Memory)
+- CLAUDE.md 嵌套规则系统
+- 四种记忆类型详解
+- 相关性选择算法
+- 记忆注入与附件系统
+- 路径安全与限制
+- 配置与最佳实践
+
+### 12. [权限系统](10-permission-system.md)
 - 权限模式类型
 - 权限上下文
 - 权限检查流程
@@ -103,6 +113,25 @@
 - 拒绝跟踪
 - 权限更新
 - UI 权限请求
+
+### 13. [Token 优化策略](13-token-optimization.md)
+- 提示缓存 (Prompt Caching)
+- 上下文压缩 (Context Compaction)
+- 微压缩 (Micro-Compaction)
+- 工具结果管理
+- Token 估算与预算管理
+- 记忆系统 Token 优化
+- 1M 上下文窗口支持
+- 成本节省分析
+
+### 14. [功能开关与配置](14-feature-flags-and-config.md)
+- 构建时功能开关 (feature())
+- 环境变量全览
+- GrowthBook 动态配置
+- Settings.json 配置
+- Beta Headers
+- 配置加载流程
+- 最佳实践与安全
 
 ## 快速开始
 
@@ -117,6 +146,12 @@
 - **AppState**: 全局应用状态
 - **MCP**: Model Context Protocol
 - **Ink**: 终端 UI 框架
+- **Memory System**: 双轨记忆系统（Auto-Memory + CLAUDE.md）
+- **Prompt Caching**: 提示缓存优化（global/org scope）
+- **Context Compaction**: 上下文压缩（自动/手动）
+- **Micro-Compaction**: 微压缩（工具结果清理）
+- **Feature Flags**: 构建时功能开关（feature()）
+- **GrowthBook**: 动态配置系统
 
 ### 常用文件路径
 ```
@@ -130,6 +165,13 @@ src/
 ├── context.ts             # 上下文构建
 ├── state/AppState.tsx     # 状态管理
 ├── services/api/claude.ts # API 层
+├── memdir/                # 记忆系统
+│   ├── memdir.ts          # 核心记忆函数
+│   ├── memoryTypes.ts     # 记忆类型定义
+│   ├── paths.ts           # 路径解析
+│   ├── memoryScan.ts      # 记忆扫描
+│   ├── findRelevantMemories.ts  # 相关性选择
+│   └── memoryAge.ts       # 记忆新鲜度
 └── tools/                 # 各工具实现
 ```
 
@@ -165,12 +207,30 @@ Source → [Process] → Destination
 | Turn | 轮次，用户输入 + AI 响应 |
 | Compact | 压缩，上下文窗口管理 |
 | Stream | 流，渐进式数据传输 |
+| Auto-Memory | 自动记忆系统，AI 持久化记忆 |
+| MEMORY.md | 记忆索引入口文件 |
+| CLAUDE.md | 项目规则配置文件 |
+| Prompt Caching | 提示缓存，API 级别的缓存优化 |
+| Context Compaction | 上下文压缩，对话历史摘要 |
+| Micro-Compaction | 微压缩，细粒度工具结果清理 |
+| Token Budget | Token 预算，上下文窗口管理 |
+| 1M Context | 1M Token 上下文窗口支持 |
+| Feature Flag | 功能开关，构建时条件编译 |
+| GrowthBook | 动态配置系统，远程功能开关 |
 
 ## 更新日志
 
 ### 2024-04-01
 - 创建初始文档集
 - 完成 11 个核心模块分析
+
+### 2024-04-01
+- 新增记忆系统文档 [记忆系统详解](11-memory-system.md)
+- 覆盖 Auto-Memory 和 CLAUDE.md 双轨架构
+
+### 2024-04-01
+- 新增功能开关文档 [功能开关与配置](14-feature-flags-and-config.md)
+- 全面梳理构建时功能开关、环境变量、GrowthBook 配置
 
 ## 参考资料
 
